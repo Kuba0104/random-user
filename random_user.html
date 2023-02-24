@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        body{
+            background-color: rgb(111, 251, 251);
+            padding: auto;
+            margin: auto;
+        }
+
+        h2{
+            margin-top: 5rem;
+            color: rgb(34, 104, 107);
+            text-align: center;
+        }
+        .row{
+            display: flex;
+        }
+
+        .column{
+            flex: 50%;
+        }
+        .user-profile{
+            align-items: center;
+            background-color: white;
+            margin: auto;
+            padding: 0.5rem;
+            border-radius: 0.4rem;
+            width: 23rem;
+        }
+
+        img{
+            margin: 03.rem;
+            border-radius: 5rem;
+        }
+
+        #full-name{
+            font-size: 1.2rem;
+        }
+
+        #username{
+            font-size: 1.2em;
+        }
+
+        #email
+
+        #user-datails{
+            margin-top: 1em;
+            font-size: 0.8em;
+            color: teal;
+        }
+        .details{
+            color: rgb(42, 116, 118);
+        }
+
+        #email{
+            margin-top: 1rem;
+        }
+
+    </style>
+    
+</head>
+<body>
+    
+    <h2>Random User</h2>
+    <div class="user-profile">
+        <div class="row">
+            <div class="column">
+                <img id="avatar-img" src="" alt="">
+            </div>
+            <div class="column details">
+                <div id="full-name">fullname</div>
+                <div id="username">username</div>
+                <div id="user-details">
+                    <div id="email">email</div>
+                    <div id="country">country</div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <script>
+
+        const URL = "https://randomuser.me/api";
+        let fullName = document.querySelector('#full-name');
+        const userName = document.querySelector('#username');
+        const emaill = document.querySelector('#email');
+        const countryy = document.querySelector('#country');
+        const avatarImg = document.querySelector('#avatar-img');
+
+        fetch(URL).then(
+            res => res.json()
+        ).then(
+            data => showPerson(data)
+        ).catch(
+            err => console.log(err)
+        )
+
+        function showPerson(data){
+            const result = data.results[0];
+            
+            const name = result.login.username;
+            userName.textContent = `@${name}`;
+            
+            const fullname = `${result.name.title} ${result.name.first} ${result.name.last}`;
+            fullName.textContent = fullname;
+            
+            const email = result.email;
+            emaill.textContent = email;
+
+            const country = result.location.country;
+            countryy.textContent = country
+
+            const picture = result.picture.large;
+            avatarImg.setAttribute('src', picture)
+
+        }
+    </script>
+</body>
+</html>
